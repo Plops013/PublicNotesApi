@@ -14,17 +14,20 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties("usuario")
 public class GrupoNotas {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private boolean publico;
 	private boolean protegidoComSenha;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;
 	@Length(min = 3, max = 6, message = "Escolha uma senha simples, entre 3 e 6 caracteres")
-	private String password;
+	private String senha;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoNotas", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Nota> notas = new ArrayList<>();
 	
@@ -67,10 +70,10 @@ public class GrupoNotas {
 		this.usuario = usuario;
 	}
 	public String getPassword() {
-		return password;
+		return senha;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.senha = password;
 	}
 	
 	

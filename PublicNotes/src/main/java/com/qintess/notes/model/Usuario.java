@@ -22,18 +22,30 @@ public class Usuario {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Length(min = 5, max = 20, message = "Seu nick deve conter entre 5 e 20 caracteres") 
-	@NotEmpty(message = "Nickname é obrigatório")
+//	@Length(min = 5, max = 20, message = "Seu nick deve conter entre 5 e 20 caracteres") 
+//	@NotEmpty(message = "Nickname é obrigatório")
 	private String nickname;
-	@Length(min = 10, max = 100, message = "seu email deve conter entre 10 e 100 carcteres") @Email  
-	@NotEmpty(message = "Email é obrigatório")
+//	@Length(min = 10, max = 100, message = "seu email deve conter entre 10 e 100 carcteres") @Email  
+//	@NotEmpty(message = "Email é obrigatório")
 	private String email;
-	@Length(min = 6, message = "Tamanho minimo permitido: 6 caracteres")  
-	@NotEmpty(message = "senha é obrigatório")
+//	@Length(min = 6, message = "Tamanho minimo permitido: 6 caracteres")  
+//	@NotEmpty(message = "senha é obrigatório")
 	private String senha;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", orphanRemoval = true)
 	private List<GrupoNotas> gruposNotas = new ArrayList<GrupoNotas>();
 	
+	
+	
+	public Usuario(long id, String nickname, String email, String senha, List<GrupoNotas> gruposNotas) {
+		super();
+		this.id = id;
+		this.nickname = nickname;
+		this.email = email;
+		this.senha = senha;
+		this.gruposNotas = gruposNotas;
+	}
+	public Usuario() {}
+
 	public void addGrupoNotas(GrupoNotas grupoNotas) {
 		grupoNotas.setUsuario(this);
 		this.gruposNotas.add(grupoNotas);
