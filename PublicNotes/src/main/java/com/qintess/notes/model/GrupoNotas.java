@@ -22,6 +22,7 @@ public class GrupoNotas {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	private String nome;
 	private boolean publico;
 	private boolean protegidoComSenha;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -35,6 +36,32 @@ public class GrupoNotas {
 		this.notas.add(nota);
 	}
 	
+	
+	
+	public String getNome() {
+		return nome;
+	}
+
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+
+
 	public void removeNota(Nota nota) {
 		this.notas.remove(nota);
 	}
